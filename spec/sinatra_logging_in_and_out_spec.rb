@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'ApplicationController' do
+
   describe "GET '/'" do
     it "returns a 200 status code" do
       get '/'
@@ -65,6 +66,7 @@ describe 'ApplicationController' do
       post '/login', {
         "username"=> "joe", "password" => "nopassword"
       }
+      follow_redirect!      
       expect(last_response.body).to include('You Must <a href="/">Log In</a> to View Your Balance')
     end
   end
@@ -72,6 +74,7 @@ describe 'ApplicationController' do
   describe "GET '/account'" do
     it "shows the error page if user goes directly to /account" do
       get '/account'
+      follow_redirect!     
       expect(last_response.body).to include('You Must <a href="/">Log In</a> to View Your Balance')
     end
 
